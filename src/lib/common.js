@@ -67,7 +67,7 @@ export async function calcMd5(...inputs) {
 export const API_CONFIG = {
     version: "13.2.5.8",
     versionCode: 13020508,
-    endpoint: "https://u.y.qq.com/cgi-bin/musics.fcg",
+    endpoint: "https://u.y.qq.com/cgi-bin/musicu.fcg",
 };
 
 /**

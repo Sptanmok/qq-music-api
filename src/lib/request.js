@@ -13,21 +13,26 @@ import { API_CONFIG } from "./common.js";
  */
 export function buildCommonParams(credential) {
     const params = {
-        cv: API_CONFIG.versionCode,
-        v: API_CONFIG.versionCode,
-        QIMEI36: "8888888888888888",
-        ct: "11",
+        _channelid: "0",
+        _os_version: "6.2.9200-2",
+        authst: "",
+        ct: "19",
+        cv: "1873",
+        patch: "118",
+        psrf_access_token_expiresAt: 0,
+        psrf_qqaccess_token: "",
+        psrf_qqopenid: "",
+        psrf_qqunionid: "",
         tmeAppID: "qqmusic",
-        format: "json",
-        inCharset: "utf-8",
-        outCharset: "utf-8",
-        uid: "3931641530",
+        tmeLoginType: 2,
+        uin: "0",
+        wid: "0",
     };
 
     if (credential && credential.musicid && credential.musickey) {
-        params.qq = String(credential.musicid);
+        params.uin = String(credential.musicid);
         params.authst = credential.musickey;
-        params.tmeLoginType = String(credential.login_type || 2);
+        params.tmeLoginType = credential.login_type || 2;
     }
 
     return params;
@@ -71,7 +76,7 @@ export async function apiRequest(module, method, params, credential = null) {
     };
 
     const signature = await generateSign(requestData);
-    const url = `${API_CONFIG.endpoint}?sign=${signature}`;
+    const url = `${API_CONFIG.endpoint}?pcachetime=${Date.now()}&sign=${signature}`;
 
     const headers = {
         "Content-Type": "application/json",
@@ -125,7 +130,7 @@ export async function batchRequest(requests, credential = null) {
     }
 
     const signature = await generateSign(requestData);
-    const url = `${API_CONFIG.endpoint}?sign=${signature}`;
+    const url = `${API_CONFIG.endpoint}?pcachetime=${Date.now()}&sign=${signature}`;
 
     const headers = {
         "Content-Type": "application/json",
